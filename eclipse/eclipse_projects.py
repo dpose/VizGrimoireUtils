@@ -162,12 +162,13 @@ def get_scm_repos(project):
     repos = project['source_repo']
     repos_list = []
     for repo in repos:
-        if repo['url'] is None:
-            url = get_scm_url(repo)
-            if url is None: continue
-            repos_list.append(url.replace("/c/","/gitroot/"))
-        else:
-            repos_list.append(repo['url'].replace("/c/","/gitroot/"))
+        if 'url' in repo:
+            if repo['url'] is None:
+                url = get_scm_url(repo)
+                if url is None: continue
+                repos_list.append(url.replace("/c/","/gitroot/"))
+            else:
+                repos_list.append(repo['url'].replace("/c/","/gitroot/"))
     return repos_list
 
 def parse_repos(repos):
